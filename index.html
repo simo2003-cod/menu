@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Digital - Restaurant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    /* Smooth floating arrow */
+    .scroll-arrow {
+        animation: arrowFloat 1.6s ease-in-out infinite;
+    }
+
+    @keyframes arrowFloat {
+        0%, 100% {
+            transform: translateY(-3px);
+        }
+        50% {
+            transform: translateY(4px);
+        }
+    }
+
+    /* Pulsating outer ring */
+    .scroll-ring {
+        animation: ringPulse 2.2s ease-out infinite;
+    }
+
+    @keyframes ringPulse {
+        0% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1.65);
+            opacity: 0;
+        }
+    }
+
+    /* Animated gold line */
+    .scroll-line {
+        transform-origin: top;
+        animation: lineGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes lineGlow {
+        0%, 100% {
+            opacity: 0.45;
+            transform: scaleY(0.75);
+        }
+        50% {
+            opacity: 1;
+            transform: scaleY(1);
+        }
+    }
+
+    /* Accessibility: respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        .scroll-arrow,
+        .scroll-ring,
+        .scroll-line {
+            animation: none;
+        }
+    }
+    /* section 2 */
+    /* CATEGORY NAV ANIMATION */
+   /* Hidden before entering Section 2 */
+/* PREMIUM CATEGORIES NAVBAR */
+.menu-categories {
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+    background: rgba(20, 19, 15, 0.94);
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* CATEGORIES CONTAINER */
+.menu-scrollbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+}
+
+/* DEFAULT BUTTON */
+.category-btn {
+    position: relative;
+    flex-shrink: 0;
+    padding: 11px 22px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    background: transparent;
+    color: rgba(255, 255, 255, 0.62);
+
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition:
+        color 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.category-btn:hover {
+    color: #F2D77A;
+    background: rgba(212, 175, 55, 0.07);
+    border-color: rgba(212, 175, 55, 0.25);
+    transform: translateY(-2px);
+}
+
+/* ACTIVE CATEGORY */
+.category-btn.active-category {
+    color: #17150F;
+    background: linear-gradient(
+        135deg,
+        #F2D77A 0%,
+        #D4AF37 100%
+    );
+    border-color: #D4AF37;
+
+    font-weight: 700;
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.16);
+}
+
+/* ACTIVE HOVER */
+.category-btn.active-category:hover {
+    color: #17150F;
+    background: linear-gradient(
+        135deg,
+        #FFE89A 0%,
+        #E2BC46 100%
+    );
+}
+
+/* MOBILE */
+@media (max-width: 640px) {
+    .menu-scrollbar {
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 13px 16px;
+    }
+
+    .category-btn {
+        padding: 10px 16px;
+        border-radius: 9px;
+        font-size: 12px;
+    }
+}
+
+
+
+    /* PRODUCT CARDS */
+    .product-card {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,.09);
+        border-radius: 18px;
+        background: #1C1A15;
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity .5s ease,
+                    transform .5s ease,
+                    border-color .3s ease;
+    }
+
+    .menu-visible .product-card {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .menu-visible .product-card:nth-child(2) {
+        transition-delay: .08s;
+    }
+
+    .menu-visible .product-card:nth-child(3) {
+        transition-delay: .16s;
+    }
+
+    .menu-visible .product-card:nth-child(4) {
+        transition-delay: .24s;
+    }
+
+    .menu-visible .product-card:nth-child(5) {
+        transition-delay: .32s;
+    }
+
+    .menu-visible .product-card:nth-child(6) {
+        transition-delay: .40s;
+    }
+
+    .product-card:hover {
+        border-color: rgba(212,175,55,.5);
+    }
+
+    .product-image-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        background: #29251C;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .6s ease;
+    }
+
+    .product-card:hover .product-image {
+        transform: scale(1.06);
+    }
+
+    .product-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: #D4AF37;
+        color: #14130F;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-info h3 {
+        overflow: hidden;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .product-info p {
+        margin-top: 5px;
+        min-height: 32px;
+        color: rgba(255,255,255,.52);
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .product-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .product-price {
+        color: #E8C96A;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .product-dot {
+        color: #D4AF37;
+        font-size: 17px;
+    }
+
+    /* SCROLLBAR ONLY INSIDE PRODUCTS */
+    #products-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #8F752B #1C1A15;
+    }
+
+    #products-scroll::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #products-scroll::-webkit-scrollbar-track {
+        background: #1C1A15;
+    }
+
+    #products-scroll::-webkit-scrollbar-thumb {
+        border-radius: 99px;
+        background: #8F752B;
+    }
+
+    .menu-scrollbar {
+        scrollbar-width: none;
+    }
+
+    .menu-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (max-width: 380px) {
+        .product-info {
+            padding: 9px;
+        }
+
+        .product-info h3 {
+            font-size: 12px;
+        }
+
+        .category-btn {
+            padding: 9px 15px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .menu-categories,
+        .product-card,
+        .product-image,
+        .category-btn {
+            transition: none !important;
+        }
+    }
+
+/* Initial animation state */
+.location-animate {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Header animation */
+.location-header {
+    transform: translateY(35px);
+}
+
+/* Information card animation */
+.location-info {
+    transform: translateX(-50px);
+    transition-delay: 0.15s;
+}
+
+/* Map animation */
+.location-map {
+    transform: translateX(50px);
+    transition-delay: 0.3s;
+}
+
+/* Active states */
+.location-animate.show {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Icon animation */
+.location-icon {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.location-icon:hover {
+    transform: translateY(-4px) scale(1.05);
+    background-color: rgba(198, 161, 91, 0.2);
+}
+
+/* Button animation */
+.location-button {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.location-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(198, 161, 91, 0.3);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .location-animate,
+    .location-icon,
+    .location-button {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+</style>
+</head>
+
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- HERO SECTION - RESTOMENU PREMIUM DESIGN -->
+    <section id="home" class="relative isolate h-screen h-[100svh] w-full overflow-hidden
+           bg-[#14130F] text-white flex flex-col">
+
+        <!-- BACKGROUND IMAGE -->
+        <div class="absolute inset-0 -z-20">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=2000&auto=format&fit=crop&q=85"
+                alt="Elegant restaurant interior" fetchpriority="high" class="h-full w-full object-cover object-center
+                   scale-[1.03]" />
+        </div>
+
+        <!-- DARK OVERLAY -->
+        <div class="absolute inset-0 -z-10
+                bg-gradient-to-b
+                from-black/65 via-black/35 to-[#14130F]/95">
+        </div>
+
+        <!-- SUBTLE GOLD GLOW -->
+        <div class="absolute -z-10 inset-0
+                bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.12),transparent_65%)]">
+        </div>
+
+        <!-- NAVBAR -->
+        <header class="relative z-20 w-full">
+            <nav class="mx-auto flex max-w-7xl items-center
+                    justify-between px-5 py-5 sm:px-8 lg:px-12
+                    border-b border-white/15">
+
+                <!-- LOGO -->
+                <a href="#home" class="text-xl sm:text-2xl font-bold
+                      tracking-wide text-white">
+                    Resto<span class="text-[#D4AF37]">.</span>
+                </a>
+
+                <!-- DESKTOP LINKS -->
+                <div class="hidden md:flex items-center gap-8
+                        text-sm text-white/80">
+
+                </div>
+
+                <!-- LANGUAGE BUTTONS -->
+                <div class="flex items-center gap-2">
+
+                    <!-- FRENCH -->
+                    <button type="button" onclick="changeLanguage('fr')" class="rounded-full border border-[#D4AF37]
+               bg-[#D4AF37] px-4 py-2.5
+               text-xs sm:text-sm font-semibold
+               text-[#14130F]
+               transition-all duration-300">
+                        FR
+                    </button>
+
+                    <!-- ARABIC -->
+                    <button type="button" onclick="changeLanguage('ar')" class="rounded-full border border-white/30
+               px-4 py-2.5 text-xs sm:text-sm
+               font-semibold text-white
+               hover:border-[#D4AF37]
+               hover:text-[#F2D77A]
+               transition-all duration-300">
+                        AR
+                    </button>
+
+                </div>
+
+            </nav>
+        </header>
+
+        <!-- HERO CONTENT -->
+        <main class="relative z-10 flex flex-1 flex-col
+                 items-center justify-center
+                 px-5 pt-8 pb-6 sm:px-8 text-center">
+
+            <!-- EYEBROW -->
+            <div class="mb-7 flex items-center gap-3">
+                <span class="h-px w-8 bg-[#D4AF37]"></span>
+
+                <span id="hero-welcome" class="text-[10px] sm:text-xs uppercase
+                         tracking-[0.28em] font-semibold
+                         text-[#F2D77A]">
+                    Bienvenue chez Atlas
+                </span>
+
+                <span class="h-px w-8 bg-[#D4AF37]"></span>
+            </div>
+
+            <!-- TITLE -->
+            <h1 id="hero-title" class="max-w-5xl text-5xl sm:text-6xl
+                   md:text-7xl lg:text-8xl
+                   font-bold tracking-tight
+                   leading-[1.05]">
+
+                L'art de bien
+
+                <span class="block mt-2
+                         font-serif italic font-normal
+                         text-[#E8C96A]">
+                    savourer.
+                </span>
+            </h1>
+
+            <!-- DESCRIPTION -->
+            <p id="hero-desc" class="mt-7 max-w-xl text-sm sm:text-base
+                  md:text-lg leading-8
+                  text-white/75">
+                Découvrez une cuisine généreuse, des saveurs
+                authentiques et une ambiance chaleureuse.
+                Votre prochaine expérience gourmande commence ici.
+            </p>
+
+
+            <!-- RESTAURANT HIGHLIGHTS -->
+            <div class="mt-8 flex flex-wrap
+                    items-center justify-center gap-x-6
+                    gap-y-3 text-xs sm:text-sm
+                    text-white/70">
+
+                <span class="flex items-center gap-2">
+                    <svg class="h-4 w-4 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.7" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 3v18M5 7h14M7 7l-2 7h6L9 7m8 0-2 7h6l-2-7" />
+                    </svg>
+                    Cuisine raffinée
+                </span>
+
+                <span class="hidden sm:block h-1 w-1
+                         rounded-full bg-[#D4AF37]"></span>
+
+                <span class="flex items-center gap-2">
+                    <svg class="h-4 w-4 text-[#D4AF37]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.7" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" />
+                        <path stroke-linecap="round" d="M12 7v5l3 2" />
+                    </svg>
+                    Une expérience unique
+                </span>
+            </div>
+
+        </main>
+
+<!-- PREMIUM SCROLL INDICATOR -->
+<div class="relative z-10 flex flex-col items-center gap-4 pb-6">
+
+    <!-- ANIMATED TEXT -->
+    <a href="#menu-section"
+       aria-label="Découvrir le menu"
+       class="group flex flex-col items-center gap-3
+              no-underline">
+
+        <span class="scroll-label text-[10px] sm:text-xs
+                     font-medium uppercase
+                     tracking-[0.3em] text-white/70
+                     transition-colors duration-300
+                     group-hover:text-[#F2D77A]">
+            Explorez notre menu
+        </span>
+
+
+        
+
+        <!-- ARROW CIRCLE -->
+        <span class="scroll-circle relative flex
+                     h-12 w-12 items-center
+                     justify-center rounded-full
+                     border border-[#D4AF37]/50
+                     bg-black/20 backdrop-blur-sm
+                     text-[#F2D77A]
+                     transition-all duration-500
+                     group-hover:border-[#F2D77A]
+                     group-hover:bg-[#D4AF37]/15
+                     group-hover:shadow-[0_0_25px_rgba(212,175,55,0.3)]">
+
+            <!-- OUTER GLOW RING -->
+            <span class="scroll-ring absolute inset-0
+                         rounded-full border
+                         border-[#D4AF37]/40">
+            </span>
+
+            <!-- ARROW -->
+            <svg
+                class="scroll-arrow relative z-10
+                       h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true">
+
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 5v14m-7-7 7 7 7-7"/>
+            </svg>
+
+        </span>
+
+    </a>
+</div>
+
+    </section>
+
+    
+<!-- SECTION 2: MENU & PRODUCTS -->
+<section
+    id="menu-section"
+    class="relative flex h-screen h-[100svh] w-full
+           flex-col overflow-hidden
+           bg-[#14130F] text-white">
+
+    <!-- SECTION HEADER -->
+    <div class="shrink-0 px-5 pt-6 pb-2 text-center sm:px-8">
+
+        <p class="mb-2 text-xs uppercase tracking-[0.3em]
+                  text-[#D4AF37]">
+            Découvrez nos saveurs
+        </p>
+
+        <h2 class="font-serif text-3xl font-bold
+                   sm:text-4xl">
+            Notre <span class="italic text-[#D4AF37]">Menu</span>
+        </h2>
+
+        <p class="mx-auto mt-2 max-w-lg text-xs
+                  text-white/55 sm:text-sm">
+            Des saveurs authentiques, préparées avec passion.
+        </p>
+
+    </div>
+
+    <!-- CATEGORIES NAVBAR -->
+    <nav
+        id="categories-nav"
+        aria-label="Catégories du menu"
+        class="menu-categories relative z-10 shrink-0
+               border-y border-white/10
+               bg-[#14130F]/95 backdrop-blur-md">
+
+        <div class="flex items-center gap-3 overflow-x-auto
+                    px-5 py-4 sm:justify-center
+                    sm:px-8 menu-scrollbar">
+
+            <button data-category="all"
+                class="category-btn active-category">
+                Tout
+            </button>
+
+            <button data-category="entrees"
+                class="category-btn">
+                Entrées
+            </button>
+
+            <button data-category="plats"
+                class="category-btn">
+                Plats
+            </button>
+
+            <button data-category="pizzas"
+                class="category-btn">
+                Pizzas
+            </button>
+
+            <button data-category="desserts"
+                class="category-btn">
+                Desserts
+            </button>
+
+            <button data-category="boissons"
+                class="category-btn">
+                Boissons
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- SCROLLABLE PRODUCTS AREA -->
+    <div
+        id="products-scroll"
+        class="min-h-0 flex-1 overflow-y-auto
+               overscroll-contain px-4 py-5
+               sm:px-8 sm:py-6">
+
+        <div
+    id="products-grid"
+    class="mx-auto grid max-w-7xl
+           grid-cols-2 gap-4
+           sm:grid-cols-2 sm:gap-5
+           lg:grid-cols-3 xl:grid-cols-4">
+
+        <!-- PRODUCT 1 -->
+        <article data-product-category="plats"
+            class="product-card">
+
+            <div class="product-image-wrap">
+                <img
+                    src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80"
+                    alt="Plat de viande grillée"
+                    loading="lazy"
+                    class="product-image"/>
+                <span class="product-badge">Populaire</span>
+            </div>
+
+            <div class="product-info">
+                <h3>Grillade Atlas</h3>
+                <p>Viande grillée, épices maison.</p>
+
+                <div class="product-footer">
+                    <span class="product-price">85 SAR</span>
+                    <span class="product-dot">✦</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 2 -->
+        <article data-product-category="pizzas"
+            class="product-card">
+
+            <div class="product-image-wrap">
+                <img
+                    src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80"
+                    alt="Pizza"
+                    loading="lazy"
+                    class="product-image"/>
+            </div>
+
+            <div class="product-info">
+                <h3>Pizza Margherita</h3>
+                <p>Tomate, mozzarella, basilic.</p>
+
+                <div class="product-footer">
+                    <span class="product-price">55 SAR</span>
+                    <span class="product-dot">✦</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 3 -->
+        <article data-product-category="plats"
+            class="product-card">
+
+            <div class="product-image-wrap">
+                <img
+                    src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80"
+                    alt="Burger maison"
+                    loading="lazy"
+                    class="product-image"/>
+            </div>
+
+            <div class="product-info">
+                <h3>Atlas Burger</h3>
+                <p>Bœuf, fromage, sauce maison.</p>
+
+                <div class="product-footer">
+                    <span class="product-price">65 SAR</span>
+                    <span class="product-dot">✦</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 4 -->
+        <article data-product-category="desserts"
+            class="product-card">
+
+            <div class="product-image-wrap">
+                <img
+                    src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80"
+                    alt="Gâteau au chocolat"
+                    loading="lazy"
+                    class="product-image"/>
+            </div>
+
+            <div class="product-info">
+                <h3>Gâteau Chocolat</h3>
+                <p>Chocolat intense, crème légère.</p>
+
+                <div class="product-footer">
+                    <span class="product-price">35 SAR</span>
+                    <span class="product-dot">✦</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 5 -->
+        <article data-product-category="boissons"
+            class="product-card">
+
+            <div class="product-image-wrap">
+                <img
+                    src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&auto=format&fit=crop&q=80"
+                    alt="Boisson fraîche"
+                    loading="lazy"
+                    class="product-image"/>
+            </div>
+
+            <div class="product-info">
+                <h3>Jus Frais</h3>
+                <p>Fruits frais de saison.</p>
+
+                <div class="product-footer">
+                    <span class="product-price">25 SAR</span>
+                    <span class="product-dot">✦</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- PRODUCT 6 -->
+        <article data-product-category="entrees"
+            class="product-card">
+
+            <div class="product-image-wrap">
+                <img
+                    src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop&q=80"
+                    alt="Salade fraîche"
+                    loading="lazy"
+                    class="product-image"/>
+            </div>
+
+            <div class="product-info">
+                <h3>Salade Fraîche</h3>
+                <p>Légumes frais, vinaigrette maison.</p>
+
+                <div class="product-footer">
+                    <span class="product-price">30 SAR</span>
+                    <span class="product-dot">✦</span>
+                </div>
+            </div>
+        </article>
+
+</div>
+    </div>
+
+</section>
+
+
+
+<section
+    id="restaurant-location"
+    class="relative flex min-h-[100vh] min-h-[100svh] w-full flex-col justify-center overflow-hidden bg-[#14130F] px-4 py-12 text-white sm:px-6 lg:items-center lg:px-12 lg:py-8"
+>
+    <!-- Background decoration -->
+    <div class="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[#C6A15B]/10 blur-[100px]"></div>
+    <div class="pointer-events-none absolute -right-40 bottom-10 h-80 w-80 rounded-full bg-[#C6A15B]/10 blur-[100px]"></div>
+
+    <div class="relative z-10 mx-auto w-full max-w-7xl">
+
+        <!-- Section Header -->
+        <div class="location-animate location-header mb-6 text-center sm:mb-8">
+            <span class="mb-2 inline-block text-xs font-semibold uppercase tracking-[0.35em] text-[#C6A15B] sm:text-sm">
+                Visit Us
+            </span>
+
+            <h2 class="text-3xl font-bold sm:text-4xl lg:text-5xl">
+                Find Our <span class="text-[#C6A15B]">Restaurant</span>
+            </h2>
+
+            <p class="mx-auto mt-2 max-w-xl text-sm leading-6 text-gray-400 sm:text-base">
+                We would love to welcome you. Visit us and enjoy a special dining experience.
+            </p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:gap-8">
+
+            <!-- Restaurant Information -->
+            <div class="location-animate location-info flex flex-col justify-center rounded-2xl border border-[#C6A15B]/20 bg-[#1D1B16] p-5 sm:p-6 lg:p-7">
+
+                <div class="mb-5">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-[#C6A15B]">
+                        Welcome to
+                    </span>
+
+                    <h3 class="mt-1 text-2xl font-bold sm:text-3xl">
+                        Resto
+                    </h3>
+
+                    <p class="mt-2 text-sm leading-6 text-gray-400">
+                        A place where great food, warm atmosphere and unforgettable moments come together.
+                    </p>
+                </div>
+
+                <!-- Address -->
+                <div class="mb-4 flex items-start gap-4">
+                    <div class="location-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C6A15B]/10 text-[#C6A15B]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/>
+                            <circle cx="12" cy="10" r="2.5"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Our Address</h4>
+                        <p id="restaurant-address" class="mt-0.5 text-xs sm:text-sm leading-5 text-gray-400">
+                           789 King Fahd Branch Road, Al Olaya, Riyadh
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Opening Hours -->
+                <div class="mb-4 flex items-start gap-4">
+                    <div class="location-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C6A15B]/10 text-[#C6A15B]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M12 7v5l3 2"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Opening Hours</h4>
+                        <p id="restaurant-hours" class="mt-0.5 text-xs sm:text-sm leading-5 text-gray-400">
+                            Monday - Sunday<br>
+                            09:00 AM - 11:00 PM
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-5 flex items-start gap-4">
+                    <div class="location-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C6A15B]/10 text-[#C6A15B]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.8 2.1Z"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-sm sm:text-base">Contact Us</h4>
+                        <p id="restaurant-phone" class="mt-0.5 text-xs sm:text-sm text-gray-400">
+                            +966 00 000 0000
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Directions Button -->
+                <a
+                    id="directions-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Riyadh+Saudi+Arabia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="location-button inline-flex w-full items-center justify-center gap-3 rounded-xl bg-[#C6A15B] px-5 py-3 text-sm font-bold text-[#14130F]"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 3 10 14"/>
+                        <path d="m21 3-7 18-4-7-7-4Z"/>
+                    </svg>
+                    Get Directions
+                </a>
+            </div>
+
+            <!-- Map -->
+            <div class="location-animate location-map relative min-h-[260px] overflow-hidden rounded-2xl border border-[#C6A15B]/20 bg-[#1D1B16] sm:min-h-[320px] lg:min-h-[440px]">
+
+                <iframe
+                    id="restaurant-map"
+                    title="Restaurant Location Map"
+src="https://maps.google.com/maps?q=Riyadh%20Saudi%20Arabia&t=&z=13&ie=UTF8&iwloc=&output=embed"                    class="absolute inset-0 h-full w-full border-0"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen
+                ></iframe>
+
+                <!-- Map Label -->
+                <div class="pointer-events-none absolute bottom-3 left-3 right-3 rounded-xl border border-white/10 bg-[#14130F]/90 p-3 backdrop-blur-md sm:bottom-4 sm:left-4 sm:right-auto sm:min-w-[200px] sm:p-3">
+
+                    <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#C6A15B]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2 22 12 12 22 2 12 12 2Z"/>
+                            <path d="M12 16V8"/>
+                            <path d="m8.5 11.5 3.5-3.5 3.5 3.5"/>
+                        </svg>
+                        Our Location
+                    </p>
+
+                    <p class="mt-1 text-sm font-semibold">
+                        Resto
+                    </p>
+
+                    <p class="mt-0.5 text-xs text-gray-400">
+                        789 King Fahd Branch Road, Al Olaya, Riyadh
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<footer id="footer" class="relative overflow-hidden border-t border-[#C6A15B]/20 bg-[#100F0C] px-5 pt-14 text-white sm:px-8 lg:px-16">
+
+    <!-- Background decoration -->
+    <div class="pointer-events-none absolute -right-40 -top-40 h-80 w-80 rounded-full bg-[#C6A15B]/10 blur-[100px]"></div>
+
+    <div class="relative z-10 mx-auto max-w-7xl">
+
+        <!-- Main Footer -->
+        <div class="grid grid-cols-1 gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+
+            <!-- Brand -->
+            <div>
+                <a href="#home" class="mb-5 inline-flex items-center gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-xl border border-[#C6A15B]/40 bg-[#C6A15B]/10 text-[#C6A15B]">
+                        <svg width="25" height="25" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.6"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 2v7a4 4 0 0 0 8 0V2"/>
+                            <path d="M7 2v20"/>
+                            <path d="M21 15V2a5 5 0 0 0-5 5v8h5Z"/>
+                            <path d="M16 15v7"/>
+                        </svg>
+                    </div>
+
+                    <span class="text-xl font-bold tracking-wide">
+                        Resto
+                    </span>
+                </a>
+
+                <p class="max-w-xs text-sm leading-7 text-gray-400">
+                    Discover delicious flavors, enjoy a warm atmosphere
+                    and create unforgettable moments with us.
+                </p>
+
+                <!-- Social Media -->
+                <div class="mt-6 flex items-center gap-3">
+
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Instagram"
+                        class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-gray-400 transition hover:border-[#C6A15B] hover:bg-[#C6A15B] hover:text-[#14130F]">
+                        <svg width="19" height="19" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/>
+                        </svg>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Facebook"
+                        class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-gray-400 transition hover:border-[#C6A15B] hover:bg-[#C6A15B] hover:text-[#14130F]">
+                        <svg width="19" height="19" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V4a22 22 0 0 0-2.5-.1c-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z"/>
+                        </svg>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer"
+                        aria-label="TikTok"
+                        class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-gray-400 transition hover:border-[#C6A15B] hover:bg-[#C6A15B] hover:text-[#14130F]">
+                        <svg width="19" height="19" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 3v11.5a4.5 4.5 0 1 1-4-4.47"/>
+                            <path d="M14 3c.5 3 2.5 5 5 5"/>
+                        </svg>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/212600000000" target="_blank" rel="noopener noreferrer"
+                        aria-label="WhatsApp"
+                        class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-gray-400 transition hover:border-[#C6A15B] hover:bg-[#C6A15B] hover:text-[#14130F]">
+                        <svg width="19" height="19" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5Z"/>
+                            <path d="M9 9a4 4 0 0 0 6 6"/>
+                        </svg>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 class="mb-5 text-base font-bold text-[#C6A15B]">
+                    Quick Links
+                </h3>
+
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="#home" class="transition hover:text-[#C6A15B]">Home</a></li>
+                    <li><a href="#menu-section" class="transition hover:text-[#C6A15B]">Our Menu</a></li>
+                    <li><a href="#restaurant-location" class="transition hover:text-[#C6A15B]">Location</a></li>
+                </ul>
+            </div>
+
+            <!-- Opening Hours -->
+            <div>
+                <h3 class="mb-5 text-base font-bold text-[#C6A15B]">
+                    Opening Hours
+                </h3>
+
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li class="flex justify-between gap-3">
+                        <span>Monday - Friday</span>
+                        <span class="text-white">09:00 - 23:00</span>
+                    </li>
+                    <li class="flex justify-between gap-3">
+                        <span>Saturday</span>
+                        <span class="text-white">09:00 - 23:00</span>
+                    </li>
+                    <li class="flex justify-between gap-3">
+                        <span>Sunday</span>
+                        <span class="text-white">10:00 - 22:00</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h3 class="mb-5 text-base font-bold text-[#C6A15B]">
+                    Contact Us
+                </h3>
+
+                <ul class="space-y-4 text-sm text-gray-400">
+
+                    <li class="flex items-start gap-3">
+                        <svg class="mt-0.5 shrink-0 text-[#C6A15B]" width="18" height="18" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/>
+                            <circle cx="12" cy="10" r="2.5"/>
+                        </svg>
+                        <span>789 King Fahd Branch Road</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <svg class="shrink-0 text-[#C6A15B]" width="18" height="18" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7"/>
+                        </svg>
+                        <span>+966 00 000 0000</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <svg class="shrink-0 text-[#C6A15B]" width="18" height="18" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.7"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="m22 7-10 7L2 7"/>
+                        </svg>
+                        <span>contact@restaurant.com</span>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-center sm:flex-row">
+
+            <p class="text-xs text-gray-500">
+                © 2026 Resto. All rights reserved.
+            </p>
+
+            <a href="#home"
+                class="inline-flex items-center gap-2 text-xs text-gray-400 transition hover:text-[#C6A15B]">
+                Back to top
+                <svg width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m18 15-6-6-6 6"/>
+                </svg>
+            </a>
+
+        </div>
+
+    </div>
+</footer>
+
+
+<script>document.addEventListener("DOMContentLoaded", () => {
+    const locationSection = document.querySelector("#restaurant-location");
+
+    if (locationSection) {
+        const elements = locationSection.querySelectorAll(".location-animate");
+
+        const locationObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                // Ila d5ol l-section ll-screen, zed "show"
+                if (entry.isIntersecting) {
+                    elements.forEach((element) => {
+                        element.classList.add("show");
+                    });
+                } else {
+                    // Ila khraj mn l-screen (wnta kat-scroll l-fok wla l-taht), 7yd "show" bach t3awd t3ks l-animation
+                    elements.forEach((element) => {
+                        element.classList.remove("show");
+                    });
+                }
+            });
+        }, {
+            threshold: 0.15, // Qeddar tbeddelha 3la 7sabch7al bghiti yban mn l-section
+            rootMargin: "0px"
+        });
+
+        locationObserver.observe(locationSection);
+    }
+});
+    // Trigger animations when the section enters the screen
+const menuSection = document.getElementById('menu-section');
+
+const menuObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                menuSection.classList.add('menu-visible');
+            } else {
+                menuSection.classList.remove('menu-visible');
+            }
+        });
+    },
+    {
+        threshold: 0.2
+    }
+);
+
+menuObserver.observe(menuSection);
+
+    // Filter products by category
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    categoryButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const category = button.dataset.category;
+
+            categoryButtons.forEach((item) => {
+                item.classList.remove('active-category');
+            });
+
+            button.classList.add('active-category');
+
+            productCards.forEach((card) => {
+                const matches =
+                    category === 'all' ||
+                    card.dataset.productCategory === category;
+
+                card.hidden = !matches;
+            });
+
+            // Reset the inner scroll after changing category
+            document.getElementById('products-scroll').scrollTop = 0;
+        });
+    });
+</script>
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
